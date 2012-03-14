@@ -12,7 +12,7 @@
         public function add(Family $family)
         {
 
-            $q = $this->db->prepare //preparation
+            $q = $this->db->prepare 
             ("INSERT INTO family SET 
                 name = :name,
                 world_id=:world_id,
@@ -45,14 +45,16 @@
         public function getList()
         {
             
-            $q = $this->db->query('SELECT * FROM family ORDER BY name');
+            $familys = array();
             
-
+            $q = $this->db->query('SELECT * FROM family ORDER BY world_id');
+            
             while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
-                $familys= new Family($donnees);
-                echo $family->name();
+                $familys[] = new Family($donnees);
             }
+
+            return $familys;
             
         }
         

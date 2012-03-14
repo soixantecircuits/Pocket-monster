@@ -5,7 +5,7 @@
         private $family_id;
 		private $name; //le nom du monstre
         private $world_id; //jointure avec le monde
-        private $max_number; // la taille max de la famille
+        private $maxi_number; // la taille max de la famille
         private $photo_link; // l'url de l'image
 
          public function __construct(array $donnees)
@@ -33,9 +33,9 @@
         //fonctions get
         public function family_id() { return $this->family_id; }
         public function name() { return $this->name; }
-        public function world_id() {return $world_id; }
-        public function max_number() {return $max_number; }
+        public function world_id() {return $this->world_id; }
         public function photo_link() { return $this->photo_link; }
+        public function maxi_number() { return $this->maxi_number; }
 
         //fonctions set
         public function setFamily_id($family_id)
@@ -58,9 +58,9 @@
 
         }
 
-        public function setMax_number($max_number)
+        public function setMaxi_number($maxi_number)
         {
-                $this->max_number = (int) $max_number;
+                $this->maxi_number = (int) $maxi_number;
             
         }
 
@@ -70,7 +70,6 @@
             if (is_string($photo_link) && strlen($photo_link) <= 100){
                 $this->photo_link = $photo_link;
             }
-            
         }
 
 

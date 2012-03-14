@@ -1,5 +1,5 @@
 <?php
-	class Family
+	class World
 	{
 		//caractéristiques
         private $world_id;
@@ -34,9 +34,9 @@
 
 
         //fonctions set
-        public function setFamily_id($family_id)
+        public function setworld_id($world_id)
         {
-            $this->family_id = (int) $family_id;
+            $this->world_id = (int) $world_id;
         }
         
         public function setName($name)
@@ -47,7 +47,7 @@
                 $this->name = $name;
      	    }
         }
-        
+
        public function setPhoto_link($photo_link)
         {
             // On verifie qu il s agit bien d'une chaine de caracteres et que le lien n est pas trop long

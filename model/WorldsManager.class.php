@@ -36,20 +36,23 @@
     
         }
         
-        //fonction permetant d'avoir une liste de monde
+           //fonction permetant d'avoir une liste de famille
         public function getList()
         {
-
-            $q = $this->db->query('SELECT * FROM world ORDER BY name');
             
-
+            $worlds = array();
+            
+            $q = $this->db->query('SELECT * FROM world ORDER BY world_id');
+            
             while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
-                $worlds= new World($donnees);
-                echo $world->name();
+                $worlds[] = new World($donnees);
             }
+
+            return $worlds;
             
         }
+        
 
         //Attribution de la db
         public function setDb(PDO $db)
