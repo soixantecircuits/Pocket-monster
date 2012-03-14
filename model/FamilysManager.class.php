@@ -41,13 +41,13 @@
     
         }
         
-        //fonction permetant d'avoir une liste de famille
+        //fonction permetant d'avoir une liste de famille toutes les familles
         public function getList()
         {
             
             $familys = array();
             
-            $q = $this->db->query('SELECT * FROM family ORDER BY world_id');
+            $q = $this->db->query('SELECT * FROM family ORDER BY family_id');
             
             while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
@@ -56,6 +56,20 @@
 
             return $familys;
             
+        }
+        //focntion perement d'avoir une liste de famille en fonction du monde
+        public function getWorldList($worldId) {
+               $familys = array();
+               $worldId=(int)$worldId; 
+            $q = $this->db->query('SELECT * FROM family WHERE world_id='.$worldId.' ORDER BY family_id');
+
+
+            while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+            {
+                $familys[] = new Family($donnees);
+            }
+
+            return $familys;
         }
         
         //Attribution de la db

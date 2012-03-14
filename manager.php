@@ -1,5 +1,5 @@
 <?php
 if ($_GET["page"]="monster"){
-	require_once("controller/monster.php");
+	require_once("controller/monsterAdd.php");
 }
 ?>

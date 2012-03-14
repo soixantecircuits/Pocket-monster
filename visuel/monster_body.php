@@ -1,12 +1,12 @@
 <h1> Monstre </h1>
 
-<form method="post" action="index.php" enctype="multipart/form-data">
+<form method="post" action="manager.php" enctype="multipart/form-data">
      <label for="name">Monster's name :</label><br/>
      <input type="text" name="name" id="name" /><br/>
      <label for="family">Monster's family :</label><br/>
      <!-- Familles -->
      <select name="family" id="family">
-		<?php 
+		<?php //creation du repertoire des familles
 			for ($i = 0; $i < count($familyList); $i++) {
 				echo "<option value='".$familyList[$i]->family_id()."'>".$familyList[$i]->name()."</option>";
 			  }

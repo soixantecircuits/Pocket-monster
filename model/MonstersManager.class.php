@@ -50,12 +50,13 @@
         }
         
         //fonction permetant d'avoir une liste de monstre
-        public function getList()
+        public function getListByFamily($family_id)
         {
             
             $monsters = array();
+            $family_id=(int)$family_id;
+            $q = $this->db->query('SELECT * FROM monster WHERE family_id ='.$family_id);
             
-            $q = $this->db->query('SELECT * FROM monster ORDER BY family_id');
             
             while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
