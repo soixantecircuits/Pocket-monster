@@ -2,7 +2,7 @@
 	class Monster 
 	{
 		//caractéristiques
-		private $monster_id; // son identifiant
+        private $monster_id;
 		private $name; //le nom du monstre
 		private $family_id; //jointure avec la famille
 		private $photo_link; //lien vers la photo
@@ -11,15 +11,10 @@
 		private $blood_type; //la race du monstre
 		private $teeth;//le nombre de dents du monstre
 
-		//fonctions get
-		public function monster_id() { return $this->monster_id; }
-        public function name() { return $this->name; }
-        public function family_id() { return $this->familyId; }
-        public function photo() { return $this->degats; }
-        public function hair_color() { return $this->hair_color; }
-        public function skinType() { return $this->skinType; }
-        public function bloodType() {return $this->bloodType;}
-
+         public function __construct(array $donnees)
+        {
+            $this->hydrate($donnees);
+        }
        // on hydrate le monstre
        public function hydrate(array $donnees)
 		{
@@ -37,6 +32,16 @@
 		    }
 		}
 
+        //fonctions get
+        public function monster_id() { return $this->monster_id; }
+        public function name() { return $this->name; }
+        public function family_id() { return $this->family_id; }
+        public function photo_link() { return $this->photo_link; }
+        public function hair_color() { return $this->hair_color; }
+        public function skin_type() { return $this->skin_type; }
+        public function blood_type() {return $this->blood_type;}
+         public function teeth() {return $this->teeth;}
+
         public function setMonster_id($monster_id)
         {
             // l indentifiant du monstre sera toujours un entier.
@@ -50,6 +55,7 @@
             {
                 $this->name = $name;
      	    }
+        }
 
         public function setFamily_id($family_id)
         {
@@ -57,7 +63,7 @@
             $this->family_id =(int)$family_id;
         }
 
-        public function setPhoto_link($photoLlink)
+        public function setPhoto_link($photo_link)
         {
             $this->photo_link = $photo_link;
         }
@@ -72,7 +78,7 @@
         public function setSkin_type($skin_type){
         	//le type de peau du monstre doit etre en caracteres
         	if (is_string($skin_type)){
-        		$this->skinType=$skinType;
+        		$this->skin_type=$skin_type;
         	}
         }
 
