@@ -15,11 +15,12 @@
 
             $q = $this->db->prepare //preparation
             ("INSERT INTO world SET 
-                name = :name,
-                photo_link=:photo_link;
+                world_name = :world_name,
+                world_photo_link=:world_photo_link;
             ");
-            $q->bindValue(':name', $world->name(), PDO::PARAM_INT);
-            $q->bindValue(':photo_link', $world->photo_link(), PDO::PARAM_INT);
+            //attribution des cles
+            $q->bindValue(':world_name', mysql_real_escape_string($world->world_name()), PDO::PARAM_INT);
+            $q->bindValue(':world_photo_link', mysql_real_escape_string($world->world_photo_link()), PDO::PARAM_INT);
             $q->execute();//execution
             $q->closeCursor();//fermeture de l'execution
         }
@@ -27,7 +28,7 @@
         // fonction permettant de récuperer un monde
         public function get($id)
         {
-            $id = (int) $id;
+            $id = (int) mysql_real_escape_string($id);
             
             $q = $this->db->query('SELECT * FROM world WHERE world_id = '.$id);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
@@ -53,6 +54,13 @@
             
         }
         
+        public function getFamilysNumber($id) {
+            $id=mysql_real_escape_string($id);
+            $q = $this->db->query('SELECT COUNT(*) FROM world WHERE world_id='.$id);
+             $donnees = $q->fetch(PDO::FETCH_ASSOC);
+             return count($donnees);
+            
+        }
 
         //Attribution de la db
         public function setDb(PDO $db)

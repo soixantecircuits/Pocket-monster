@@ -14,17 +14,17 @@
 
             $q = $this->db->prepare 
             ("INSERT INTO family SET 
-                name = :name,
-                world_id=:world_id,
-                photo_link=:photo_link,
-                maxi_number=:maxi_number;
+                family_name = :family_name,
+                world_id =:world_id,
+                family_photo_link= :family_photo_link,
+                family_max_number= :family_max_number;
             ");
             //association des cles
-            $q->bindValue(':name', $family->name(), PDO::PARAM_INT);
+            $q->bindValue(':family_name', $family->family_name(), PDO::PARAM_INT);
             $q->bindValue(':world_id', $family->world_id(), PDO::PARAM_INT);
-             $q->bindValue(':photo_link', $family->photo_link(), PDO::PARAM_INT);
-            $q->bindValue(':maxi_number', $family->maxi_number(), PDO::PARAM_INT);
-            
+            $q->bindValue(':family_photo_link', $family->family_photo_link(), PDO::PARAM_INT);
+            $q->bindValue(':family_max_number', $family->family_max_number(), PDO::PARAM_INT);
+
             $q->execute();//execution
             $q->closeCursor();//fermeture de l'execution
         }
@@ -72,6 +72,24 @@
             return $familys;
         }
         
+        public function getRatio($id){
+            $ratio = array();
+            $id = (int) $id;
+            
+            $q = $this->db->query('SELECT COUNT(*) FROM monster WHERE family_id = '.$id);
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+
+                $ratio["member"]=count($donnees);
+
+            $q = $this->db->query('SELECT family_max_number FROM family WHERE family_id = '.$id);
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+
+            $ratio["max_number"]=$donnees["family_max_number"];
+            
+            $ratio["ratio"]="".$ratio["member"]." / ".$ratio["max_number"];
+           
+            return $ratio;
+        }
         //Attribution de la db
         public function setDb(PDO $db)
         {

@@ -1,6 +1,6 @@
  <div class="hero-unit">
 			 	<div class="page-header">
-  				<h1>Choisissez votre monde</h1>
+  				<h1>Choose your world</h1>
 				</div>
 			</div>
 <div class="row">
@@ -8,7 +8,7 @@
 	<ul>
 	   <?php 
 			for ($i = 0; $i < count($worldList); $i++) {
-				echo "<li><a href='?page=family&&world_id=".$worldList[$i]->world_id()."'>".$worldList[$i]->name()."</a></li>";
+				echo "<li><a href='?page=family&&world_id=".$worldList[$i]->world_id()."'>".$worldList[$i]->world_name()."</a></li>";
 			}
 		?>
 	</ul>

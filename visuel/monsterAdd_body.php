@@ -1,6 +1,8 @@
-<h1> Monstre </h1>
+<div class="hero-unit">
+  <h1> Monster </h1>
+</div>
 
-<form method="post" action="manager.php" enctype="multipart/form-data">
+<form  class="span4 offset4" method="post" action="admin.php?page=monster" enctype="multipart/form-data">
      <label for="name">Monster's name :</label><br/>
      <input type="text" name="name" id="name" /><br/>
      <label for="family">Monster's family :</label><br/>
@@ -8,7 +10,7 @@
      <select name="family" id="family">
 		<?php //creation du repertoire des familles
 			for ($i = 0; $i < count($familyList); $i++) {
-				echo "<option value='".$familyList[$i]->family_id()."'>".$familyList[$i]->name()."</option>";
+				echo "<option value='".$familyList[$i]->family_id()."'>".$familyList[$i]->family_name()."</option>";
 			  }
 		?>
 	</select>
@@ -32,13 +34,13 @@
 	<input type="radio" name="skin_type" value="Green" checked> Green
 	<br/>
 	<!-- Race -->
-	<label for="hair_color">Monster's blood type :</label>
+	<label for="blood_type">Monster's blood type :</label>
 	<br/>
 	<input type="radio" name="blood_type" value="Zombie"> Zombie
 	<input type="radio" name="blood_type" value="Alien" checked> Alien
 	<input type="radio" name="blood_type" value="Medusa"> Medusa
 	<input type="radio" name="blood_type" value="Blob"> Blob
-	<input type="radio" name="blood_type" value="Funnybear"> Funnybear
+	<input type="radio" name="blood_type" value="Funnybear"> Bear
 	<br/>
 	<!-- Dents -->
 	<label for="hair_color">Monster's teeth :</label>
@@ -49,7 +51,7 @@
 	<!-- Photo -->
      
      <input type="file" name="photo" id="photo" /><br/>
-     <input id ="submit" type="submit" name="submit" value="Send" />
+     <input class="btn" id ="submit" type="submit" name="submit" value="Send" /><a class="btn" href="admin.php">Cancel</a>
 </form>
 <script>
 	function showValue(newValue)

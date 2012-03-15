@@ -3,8 +3,8 @@
 	{
 		//caractéristiques
         private $world_id;
-		private $name; //le nom du monde
-        private $photo_link;//l'url de la photo
+		private $world_name; //le nom du monde
+        private $world_photo_link;//l'url de la photo
          public function __construct(array $donnees)
         {
             $this->hydrate($donnees);
@@ -29,30 +29,30 @@
 
         //fonctions get
         public function world_id() { return $this->world_id; }
-        public function name() { return $this->name; }
-        public function photo_link() { return $this->photo_link; }
+        public function world_name() { return $this->world_name; }
+        public function world_photo_link() { return $this->world_photo_link; }
 
 
         //fonctions set
-        public function setworld_id($world_id)
+        public function setWorld_id($world_id)
         {
             $this->world_id = (int) $world_id;
         }
         
-        public function setName($name)
+        public function setWorld_name($world_name)
         {
             // On verifie qu il s agit bien d'une chaine de caracteres et que le nom n est pas trop long
-            if (is_string($name) && strlen($name) <= 30)
+            if (is_string($world_name) && strlen($world_name) <= 30)
             {
-                $this->name = $name;
+                $this->world_name = $world_name;
      	    }
         }
 
-       public function setPhoto_link($photo_link)
+       public function setWorld_photo_link($world_photo_link)
         {
             // On verifie qu il s agit bien d'une chaine de caracteres et que le lien n est pas trop long
-            if (is_string($photo_link) && strlen($photo_link) <= 100){
-                $this->photo_link = $photo_link;
+            if (is_string($world_photo_link) && strlen($world_photo_link) <= 100){
+                $this->world_photo_link = $world_photo_link;
             }
             
         }
