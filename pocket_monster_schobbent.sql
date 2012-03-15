@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Mer 14 Mars 2012 à 20:30
+-- Généré le : Jeu 15 Mars 2012 à 05:56
 -- Version du serveur: 5.5.16
 -- Version de PHP: 5.3.8
 
@@ -28,21 +28,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `family` (
   `family_id` int(255) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `maxi_number` int(255) NOT NULL,
-  `photo_link` varchar(100) NOT NULL,
+  `family_name` varchar(30) NOT NULL,
+  `family_max_number` int(255) NOT NULL,
+  `family_photo_link` varchar(100) NOT NULL,
   `world_id` int(5) NOT NULL,
   PRIMARY KEY (`family_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Contenu de la table `family`
 --
 
-INSERT INTO `family` (`family_id`, `name`, `maxi_number`, `photo_link`, `world_id`) VALUES
-(1, 'Pala', 0, '', 0),
-(6, 'Second', 50, 'yeay', 1),
-(7, 'Second', 50, 'yeay', 1);
+INSERT INTO `family` (`family_id`, `family_name`, `family_max_number`, `family_photo_link`, `world_id`) VALUES
+(14, 'BrainOver', 31, 'photo_family/default.png', 7),
+(16, 'Sanguinaires', 41, 'photo_family/default.png', 7);
 
 -- --------------------------------------------------------
 
@@ -52,26 +51,24 @@ INSERT INTO `family` (`family_id`, `name`, `maxi_number`, `photo_link`, `world_i
 
 CREATE TABLE IF NOT EXISTS `monster` (
   `monster_id` int(255) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
+  `monster_name` varchar(30) NOT NULL,
   `family_id` int(5) NOT NULL,
-  `photo_link` varchar(255) NOT NULL,
-  `hair_color` varchar(30) NOT NULL,
-  `skin_type` varchar(30) NOT NULL,
-  `blood_type` varchar(30) NOT NULL,
-  `teeth` int(3) NOT NULL,
+  `monster_photo_link` varchar(255) NOT NULL,
+  `monster_hair_color` varchar(30) NOT NULL,
+  `monster_skin_type` varchar(30) NOT NULL,
+  `monster_blood_type` varchar(30) NOT NULL,
+  `monster_teeth` int(3) NOT NULL,
   PRIMARY KEY (`monster_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Contenu de la table `monster`
 --
 
-INSERT INTO `monster` (`monster_id`, `name`, `family_id`, `photo_link`, `hair_color`, `skin_type`, `blood_type`, `teeth`) VALUES
-(1, 'test', 1, 'zdzddzd', 'bleu', 'poilu', 'vampire', 32),
-(13, 'Chouch', 5, 'yeay', 'jaune', 'poilu', 'vampire', 32),
-(14, 'Chouch', 5, 'yeay', 'jaune', 'poilu', 'vampire', 32),
-(15, 'Padawa', 5, 'yeay', 'jaune', 'poilu', 'vampire', 32),
-(19, 'Alawa', 1, 'photo_monstre/default.png', 'Black', 'Green', 'Alien', 2);
+INSERT INTO `monster` (`monster_id`, `monster_name`, `family_id`, `monster_photo_link`, `monster_hair_color`, `monster_skin_type`, `monster_blood_type`, `monster_teeth`) VALUES
+(26, 'Margueritte', 14, 'photo_monstre/default.png', 'Black', 'Green', 'Zombie', 4),
+(31, 'Skull', 14, 'photo_monstre/default.png', 'Yellow', 'Black', 'Alien', 2),
+(36, 'Viper', 16, 'photo_monstre/default.png', 'Green', 'Green', 'Medusa', 50);
 
 -- --------------------------------------------------------
 
@@ -81,19 +78,18 @@ INSERT INTO `monster` (`monster_id`, `name`, `family_id`, `photo_link`, `hair_co
 
 CREATE TABLE IF NOT EXISTS `world` (
   `world_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `photo_link` varchar(100) NOT NULL,
+  `world_name` varchar(30) NOT NULL,
+  `world_photo_link` varchar(100) NOT NULL,
   PRIMARY KEY (`world_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `world`
 --
 
-INSERT INTO `world` (`world_id`, `name`, `photo_link`) VALUES
-(1, 'test', 'sdsqdsdds'),
-(2, 'hello', ''),
-(3, 'Pala', 'test');
+INSERT INTO `world` (`world_id`, `world_name`, `world_photo_link`) VALUES
+(7, 'Pandore', 'photo_world/gare_TGV_Liege-Guillemins_20090806_P1300958_Misson_Didier.jpg'),
+(8, 'Andora', 'photo_world/default.png');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

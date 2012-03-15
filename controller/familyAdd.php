@@ -1,4 +1,4 @@
-<?php
+header("Location: admin?page=success");<?php
 
 if (isset($_POST["name"])){
 	if (!empty($_POST["name"])){ //verification du nom
@@ -32,7 +32,7 @@ if (isset($_POST["name"])){
 				    	));
 				    	 $managerFamily = new familysManager($db); //creation d un manager
 	    				 $managerFamily->add($family);
-	    				 echo "Your family has been created";
+	    				 header("Location: admin.php?page=success");
 					}
 
 					else{

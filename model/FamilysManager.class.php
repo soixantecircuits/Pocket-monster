@@ -79,14 +79,14 @@
             $q = $this->db->query('SELECT COUNT(*) FROM monster WHERE family_id = '.$id);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
 
-                $ratio["member"]=count($donnees);
+            $ratio["member"]=$donnees["COUNT(*)"];
 
             $q = $this->db->query('SELECT family_max_number FROM family WHERE family_id = '.$id);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
 
             $ratio["max_number"]=$donnees["family_max_number"];
             
-            $ratio["ratio"]="".$ratio["member"]." / ".$ratio["max_number"];
+            $ratio["ratio"]="".$ratio["member"]."/".$ratio["max_number"];
            
             return $ratio;
         }

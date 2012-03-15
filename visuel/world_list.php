@@ -8,7 +8,7 @@
 	<ul>
 	   <?php 
 			for ($i = 0; $i < count($worldList); $i++) {
-				echo "<li><a href='?page=family&&world_id=".$worldList[$i]->world_id()."'>".$worldList[$i]->world_name()."</a></li>";
+				echo "<li class='btn'><a href='?page=family&&world_id=".$worldList[$i]->world_id()."'>".$worldList[$i]->world_name()."</a></li>";
 			}
 		?>
 	</ul>

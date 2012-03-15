@@ -1,9 +1,18 @@
  			<?php
  			$worldManagers=new WorldsManager($db);
+ 			if (!isset($_GET["world_id"])){
+ 				header("Location: index.php");
+ 				exit();
+ 			}
 			 ?>
 			 <div class="hero-unit">
 			 	<div class="page-header">
-  				<h1>World : <?php echo $worldManagers->get($_GET["world_id"])->world_name();?></h1>
+
+  				<h1>World : <?php $world=$worldManagers->get($_GET["world_id"]);
+  								  if (!empty($world)) {
+  								  	echo $world->world_name();
+  								  }
+  							?></h1>
 				</div>
 			</div>
 			<h2> Family List </h2>
@@ -40,3 +49,7 @@
 					if (count($familyList)<=0){ //Si le monde est vide
 						echo "Empty world";
 					}
+			?>
+			<script>
+			document.body.background="<?php echo $worldManagers->get($_GET['world_id'])->world_photo_link();?>"
+			</script>

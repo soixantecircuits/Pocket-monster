@@ -10,7 +10,9 @@
      <select name="family" id="family">
 		<?php //creation du repertoire des familles
 			for ($i = 0; $i < count($familyList); $i++) {
-				echo "<option value='".$familyList[$i]->family_id()."'>".$familyList[$i]->family_name()."</option>";
+				
+				$ratio=$managerFamily->getRatio($familyList[$i]->family_id());
+				echo "<option value='".$familyList[$i]->family_id()."'>".$familyList[$i]->family_name()." (".$ratio['ratio'].")</option>";
 			  }
 		?>
 	</select>

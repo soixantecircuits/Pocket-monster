@@ -32,9 +32,9 @@
             
             $q = $this->db->query('SELECT * FROM world WHERE world_id = '.$id);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
-            
-            return new World($donnees);
-    
+            if (!empty($donnees)){
+                return new World($donnees);
+            }
         }
         
            //fonction permetant d'avoir une liste de famille
@@ -56,10 +56,11 @@
         
         public function getFamilysNumber($id) {
             $id=mysql_real_escape_string($id);
-            $q = $this->db->query('SELECT COUNT(*) FROM world WHERE world_id='.$id);
-             $donnees = $q->fetch(PDO::FETCH_ASSOC);
-             return count($donnees);
-            
+            if (!empty($id)){
+                $q = $this->db->query('SELECT COUNT(*) FROM world WHERE world_id='.$id);
+                 $donnees = $q->fetch(PDO::FETCH_ASSOC);
+                 return count($donnees);
+            }
         }
 
         //Attribution de la db

@@ -1,8 +1,11 @@
 <?php
-
+    $managerFamily = new FamilysManager($db); //creation d un manager
+    $familyList=$managerFamily->getList();
 if (isset($_POST["name"])){
+	
 	if (!empty($_POST["name"])){ //verification du nom
-				
+		$ratio=$managerFamily->getRatio($_POST["family"]);
+		if ($ratio["member"]<$ratio["max_number"]){ // Test pour savoir si la famille n'est pas pleine
 				if (isset($_FILES['photo']['name']))//Verifications lors de l'envoi de la photo
 				{
 					$maxsize=500000;
@@ -35,21 +38,24 @@ if (isset($_POST["name"])){
 				    	));
 				    	 $managerMonster = new MonstersManager($db); //creation d un manager
 	    				 $managerMonster->add($monstre);
-	    				 echo "Your monster has been created";
+	    				 header("Location: admin.php?page=success");
 					}
 
 					else{
 						echo "Your photo size is too large, 500 Mo max.";
 					}
 				}
+		}
+		else {
+			echo "This family is full";
+		}
 	}
 	else {
 		echo "You forgot to enter a name";
 	}
 }
      
-    $managerFamily = new FamilysManager($db); //creation d un manager
-    $familyList=$managerFamily->getList();
+
     require_once("visuel/monsterAdd_body.php");
 ?>
 

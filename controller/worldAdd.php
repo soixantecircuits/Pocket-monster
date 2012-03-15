@@ -31,7 +31,7 @@ if (isset($_POST["name"])){
 				    	));
 				    	 $managerWorld = new worldsManager($db); //creation d un manager
 	    				 $managerWorld->add($world);
-	    				 echo "Your world has been created";
+	    				 header("Location: admin.php?page=success");
 					}
 
 					else{

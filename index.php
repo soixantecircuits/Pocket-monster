@@ -1,7 +1,8 @@
 <html>
 <head>
 	<title>My Pocket Monster</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <div class="container">
@@ -37,6 +38,7 @@
 
 	?>
 </div>
+<a id="footer" class="btn-large btn-success" href="admin.php">Admin Panel</a>
 </body>
 
 </html>
