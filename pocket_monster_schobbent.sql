@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Jeu 15 Mars 2012 à 05:56
+-- Généré le : Jeu 15 Mars 2012 à 06:03
 -- Version du serveur: 5.5.16
 -- Version de PHP: 5.3.8
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `family` (
   `family_photo_link` varchar(100) NOT NULL,
   `world_id` int(5) NOT NULL,
   PRIMARY KEY (`family_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `family`
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `monster` (
   `monster_blood_type` varchar(30) NOT NULL,
   `monster_teeth` int(3) NOT NULL,
   PRIMARY KEY (`monster_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
 -- Contenu de la table `monster`
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `world` (
   `world_name` varchar(30) NOT NULL,
   `world_photo_link` varchar(100) NOT NULL,
   PRIMARY KEY (`world_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `world`
