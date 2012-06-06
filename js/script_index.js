@@ -18,17 +18,18 @@ function update_world (id) {
 	document.body.appendChild(sheet);
 }
 
-function choose_family (id) {
-	update_family(id);
+function choose_family (id, idF) {
+	update_family(id, idF);
 	document.getElementById('form').submit();
 }
 
-function update_family (id) {
-	var trs = document.getElementById('family').getElementsByTagName("tr");
+function update_family (id, idF) {
+	var trs = document.getElementById('family_table').getElementsByTagName("tr");
 	for (var i = 0; i < trs.length; i++) {
 		if (i != id) {
 			trs[i].removeChild(trs[i].getElementsByTagName("td")[0]);
 		}
 	}
 	document.getElementById('family_form').value = id;
+	document.getElementById('family_id').value = idF;
 }

@@ -8,18 +8,12 @@
 
 	<body>
 		<?php
-			try
-			{
-				$db = new PDO("mysql:host=localhost;dbname=pocket-monster", "root", "");
-			}
-			catch(Exception $e)
-			{
-				die('Error : '.$e->getMessage());
-			}
+		include 'admin/inc_connec.php';
 		?>
 		<form id='form' name="form" action="index.php" method="post">
 			<input type='hidden' id='world_form' name='world_form' value='' />
 			<input type='hidden' id='family_form' name='family_form' value='' />
+			<input type='hidden' id='family_id' name='family_id' value='' />
 		</form>
 		<table id='world_table'>
 			<?php
@@ -47,7 +41,7 @@
 			?>
 		</table>
 		
-		<table id='family'>
+		<table id='family_table'>
 			<?php
 			if (isset($_POST['world_form']))
 			{
@@ -56,7 +50,7 @@
 				$id = 0;
 				while ($data = $query->fetch())
 				{
-					echo '<tr><td onclick="choose_family(' . $id . ')">';
+					echo '<tr><td onclick="choose_family(' . $id . ', ' . $data['id'] . ')">';
 					if ($data['img'] == null)
 					{
 						?><img src='img_family/default.png' /><?php
@@ -64,6 +58,36 @@
 					else
 					{
 						?><img src='img_family/<?php echo $data['img'] ?>' /><?php
+					}
+					echo '<br />';
+					echo $data['name'];
+					echo '</td></tr>';
+					$id = $id + 1;
+				}
+
+				$query->closeCursor();
+			}
+			?>
+		</table>
+		
+		<table id='monster_table'>
+			<?php
+			if (isset($_POST['family_form']) && $_POST['family_form'] != '')
+			{
+				$world = $_POST['world_form'] + 1;
+				$family = $_POST['family_id'];
+				$query = $db->query("SELECT * FROM monster WHERE family='$family' ");
+				$id = 0;
+				while ($data = $query->fetch())
+				{
+					echo '<tr><td onclick="choose_monster(' . $id . ')">';
+					if ($data['img'] == null)
+					{
+						?><img src='img_monster/default.png' /><?php
+					}
+					else
+					{
+						?><img src='img_monster/<?php echo $data['img'] ?>' /><?php
 					}
 					echo '<br />';
 					echo $data['name'];
@@ -84,8 +108,8 @@
 			}
 			if (isset($_POST['family_form']) && $_POST['family_form'] != '')
 			{
-				echo '<script>update_family('.$_POST['family_form'].');</script>';
-			}			
+				echo '<script>update_family('.$_POST['family_form'].', ' . $_POST['family_id'] . ');</script>';
+			}
 		?>
 	</body>
 </html>

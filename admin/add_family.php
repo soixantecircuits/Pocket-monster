@@ -1,27 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Pocket-monster</title>
+	</head>
+
+	<body>
 <?php
 
-try
-{
-	$db = new PDO('mysql:host=localhost;dbname=pocket-monster', 'root', '');
-}
-catch(Exception $e)
-{
-	die('Error : '.$e->getMessage());
-}
+$upload_path = '../img_family/';
+include 'inc_upload.php';
 
-if (isset($_POST['name']) && isset($_POST['world_select']))
+include 'inc_connec.php';
+
+if (isset($_POST['name']))
 {
 	$name = $_POST['name'];
 	$world = $_POST['world_select'];
-	if (isset($_POST['img']))
-	{
-		$img = $_POST['img'];
-	}
-	else
-	{
-		$img = NULL;
-	}
-	
 	$req = $db->prepare("INSERT INTO family(name, img, world) VALUES(:name, :img, :world)");
 	$req->execute(array(
 		'name' => $name,
@@ -39,3 +34,5 @@ else
 ?>
 <br />
 <button onclick='document.location.href="../admin.php"'>Go back to the admin page</button>
+	</body>
+</html>

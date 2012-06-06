@@ -29,14 +29,7 @@
 									$ws = $_POST['world_select'];
 								}
 								
-								try
-								{
-									$db = new PDO('mysql:host=localhost;dbname=pocket-monster', 'root', '');
-								}
-								catch(Exception $e)
-								{
-									die('Error : '.$e->getMessage());
-								}
+								include 'admin/inc_connec.php';
 								
 								$query = $db->query("SELECT * FROM world");
 								
@@ -65,14 +58,7 @@
 							<?php
 								if ($ws != "" && $ws != "0")
 								{
-									try
-									{
-										$db = new PDO('mysql:host=localhost;dbname=pocket-monster', 'root', '');
-									}
-									catch(Exception $e)
-									{
-										die('Error : '.$e->getMessage());
-									}
+									include 'admin/inc_connec.php';
 									
 									$query = $db->query("SELECT * FROM family WHERE world='$ws' ");
 									
