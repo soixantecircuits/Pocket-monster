@@ -21,11 +21,11 @@ function click_monster () {
 
 function send_form () {
 	if (document.getElementById('button_world').checked) {
-		document.getElementById('form').action = 'admin/add_world.php';
+		document.getElementById('form').action = 'admin/img_world.php';
 	} else if (document.getElementById('button_family').checked) {
-		document.getElementById('form').action = 'admin/add_family.php';
+		document.getElementById('form').action = 'admin/img_family.php';
 	} else {
-		document.getElementById('form').action = 'admin/add_monster.php';
+		document.getElementById('form').action = 'admin/img_monster.php';
 	}
 	
 	document.getElementById('form').submit();

@@ -12,6 +12,10 @@ function update_world (id) {
 		}
 	}
 	document.getElementById('world_form').value = id;
+
+	var sheet = document.createElement('style')
+	sheet.innerHTML = "body {background:url('" + trs[id].getElementsByTagName('img')[0].src + "') no-repeat;} ";
+	document.body.appendChild(sheet);
 }
 
 function choose_family (id) {

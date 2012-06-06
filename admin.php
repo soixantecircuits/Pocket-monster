@@ -7,7 +7,7 @@
 
 	<body>
 
-		<form id='form' name="form" action="admin.php" method="post">
+		<form id='form' name="form" action="admin.php" method="post" enctype="multipart/form-data">
 			<input type='radio' name='create' id='button_world' value='button_world' onclick='click_world();' />Create a World
 			<input type='radio' name='create' id='button_family' value='button_family' onclick='click_family();' />Create a family
 			<input type='radio' name='create' id='button_monster' value='button_monster' onclick='click_monster();' />Create a Monster
