@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Pocket-monster</title>
+	</head>
+
+	<body>
+
+		<form id='form' name="form" action="admin.php" method="post">
+			<input type='radio' name='create' id='button_world' value='button_world' onclick='click_world();' />Create a World
+			<input type='radio' name='create' id='button_familly' value='button_familly' onclick='click_familly();' />Create a Familly
+			<input type='radio' name='create' id='button_monster' value='button_monster' onclick='click_monster();' />Create a Monster
+
+			<table>
+				<br />
+				<tr>
+					<td><label for='name' id="lbl_name">Name of the world : </label></td>
+					<td><input type="text" name="name" id="name" <?php if (isset($_POST['name'])) echo "value='".$_POST['name']."'"; ?> /></td>
+				</tr><tr id ='world'>
+					<td><label for='world' id="lbl_world">Choose a world</label></td>
+					<td>
+						<select name="world_select" onchange="this.form.submit();">
+							<option value='0'>Choose a world</option>
+							<?php
+								$ws = "";
+								if (isset($_POST['world_select']))
+								{
+									$ws = $_POST['world_select'];
+								}
+								
+								try
+								{
+									$db = new PDO('mysql:host=localhost;dbname=pocket-monster', 'root', '');
+								}
+								catch(Exception $e)
+								{
+									die('Error : '.$e->getMessage());
+								}
+								
+								$query = $db->query("SELECT * FROM world");
+								
+								while ($data = $query->fetch())
+								{
+									$selected = "";
+									if ($ws == $data['id'])
+										$selected = " selected='selected' ";
+									?>
+									<option <?php echo $selected; ?>value='<?php echo $data['id']; ?>'>
+										<?php echo $data['name']; ?>
+									</option>
+									<?php
+								}
+								
+								$query->closeCursor();
+							
+							?>
+						</select>
+					</td>
+				</tr><tr id ='familly'>
+					<td><label for='world' id="lbl_familly">Choose a familly</label></td>
+					<td>
+						<select name="familly_select">
+							<option value='0'>Choose a familly</option>
+							<?php
+								if ($ws != "" && $ws != "0")
+								{
+									try
+									{
+										$db = new PDO('mysql:host=localhost;dbname=pocket-monster', 'root', '');
+									}
+									catch(Exception $e)
+									{
+										die('Error : '.$e->getMessage());
+									}
+									
+									$query = $db->query("SELECT * FROM familly WHERE world='$ws' ");
+									
+									while ($data = $query->fetch())
+									{
+										?>
+										<option value='<?php echo $data['id']; ?>'>
+											<?php echo $data['name']; ?>
+										</option>
+										<?php
+									}
+									
+									$query->closeCursor();
+								}
+							?>
+						</select>
+					</td>
+				</tr><tr>
+					<td><button onclick='send_form();'>Submit</button></td>
+				</tr>
+			</table>
+		</form>
+		
+		<script src='js/admin_button.js'></script>
+		<?php
+			if (isset($_POST['create']) && $_POST['create'] == "button_familly")
+			{
+				echo '<script>click_familly();</script>';
+
+			}
+			else if (isset($_POST['create']) && $_POST['create'] == "button_monster")
+			{
+				echo '<script>click_monster();</script>';
+			}
+			else
+			{
+				echo '<script>click_world();</script>';
+			}
+		?>
+		
+	</body>
+</html>
