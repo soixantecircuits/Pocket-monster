@@ -22,14 +22,14 @@ if (isset($_POST['name']) && isset($_POST['world_select']))
 		$img = NULL;
 	}
 	
-	$req = $db->prepare("INSERT INTO familly(name, img, world) VALUES(:name, :img, :world)");
+	$req = $db->prepare("INSERT INTO family(name, img, world) VALUES(:name, :img, :world)");
 	$req->execute(array(
 		'name' => $name,
 		'img' => $img,
 		'world' => $world
 		));
 		
-	echo "Familly '" . $name . "' has been successfully added.";
+	echo "Family '" . $name . "' has been successfully added.";
 }
 else
 {

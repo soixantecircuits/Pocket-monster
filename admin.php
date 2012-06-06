@@ -9,7 +9,7 @@
 
 		<form id='form' name="form" action="admin.php" method="post">
 			<input type='radio' name='create' id='button_world' value='button_world' onclick='click_world();' />Create a World
-			<input type='radio' name='create' id='button_familly' value='button_familly' onclick='click_familly();' />Create a Familly
+			<input type='radio' name='create' id='button_family' value='button_family' onclick='click_family();' />Create a family
 			<input type='radio' name='create' id='button_monster' value='button_monster' onclick='click_monster();' />Create a Monster
 
 			<table>
@@ -57,11 +57,11 @@
 							?>
 						</select>
 					</td>
-				</tr><tr id ='familly'>
-					<td><label for='world' id="lbl_familly">Choose a familly</label></td>
+				</tr><tr id ='family'>
+					<td><label for='world' id="lbl_family">Choose a family</label></td>
 					<td>
-						<select name="familly_select">
-							<option value='0'>Choose a familly</option>
+						<select name="family_select">
+							<option value='0'>Choose a family</option>
 							<?php
 								if ($ws != "" && $ws != "0")
 								{
@@ -74,7 +74,7 @@
 										die('Error : '.$e->getMessage());
 									}
 									
-									$query = $db->query("SELECT * FROM familly WHERE world='$ws' ");
+									$query = $db->query("SELECT * FROM family WHERE world='$ws' ");
 									
 									while ($data = $query->fetch())
 									{
@@ -98,9 +98,9 @@
 		
 		<script src='js/admin_button.js'></script>
 		<?php
-			if (isset($_POST['create']) && $_POST['create'] == "button_familly")
+			if (isset($_POST['create']) && $_POST['create'] == "button_family")
 			{
-				echo '<script>click_familly();</script>';
+				echo '<script>click_family();</script>';
 
 			}
 			else if (isset($_POST['create']) && $_POST['create'] == "button_monster")

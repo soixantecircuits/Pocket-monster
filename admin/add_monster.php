@@ -9,11 +9,11 @@ catch(Exception $e)
 	die('Error : '.$e->getMessage());
 }
 
-if (isset($_POST['name']) && isset($_POST['world_select']) && isset($_POST['familly_select']))
+if (isset($_POST['name']) && isset($_POST['world_select']) && isset($_POST['family_select']))
 {
 	$name = $_POST['name'];
 	$world = $_POST['world_select'];
-	$familly = $_POST['familly_select'];
+	$family = $_POST['family_select'];
 	if (isset($_POST['img']))
 	{
 		$img = $_POST['img'];
@@ -23,12 +23,12 @@ if (isset($_POST['name']) && isset($_POST['world_select']) && isset($_POST['fami
 		$img = NULL;
 	}
 	
-	$req = $db->prepare("INSERT INTO monster(name, img, world, familly) VALUES(:name, :img, :world, :familly)");
+	$req = $db->prepare("INSERT INTO monster(name, img, world, family) VALUES(:name, :img, :world, :family)");
 	$req->execute(array(
 		'name' => $name,
 		'img' => $img,
 		'world' => $world,
-		'familly' => $familly
+		'family' => $family
 		));
 		
 	echo "Monster '" . $name . "' has been successfully added.";

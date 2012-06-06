@@ -1,0 +1,13 @@
+table {
+	float:left;
+	width:148px;
+}
+ 
+ #table_container{width:300px;margin:0 auto;}
+
+
+table td {
+	text-align:center;
+	border:1px solid;
+	margin:5px;
+}
