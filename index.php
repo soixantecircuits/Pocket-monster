@@ -1,3 +1,10 @@
+<!--
+	===== index.php ======
+	User's page, allow the user to choose a world,
+	a family that is linked	to this world and a monster
+	linked to this family. When selecting the monster,
+	some informations are displayed.
+-->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,6 +17,7 @@
 		<?php
 		include 'admin/inc_connec.php';
 		?>
+		<!-- Hidden forms to keed the values after each action -->
 		<form id='form' name="form" action="index.php" method="post">
 			<input type='hidden' id='world_form' name='world_form' value='' />
 			<input type='hidden' id='family_form' name='family_form' value='' />
@@ -17,6 +25,8 @@
 			<input type='hidden' id='monster_form' name='monster_form' value='' />
 			<input type='hidden' id='monster_id' name='monster_id' value='' />
 		</form>
+		
+		<!-- Table for the world selection -->
 		<table id='world_table'>
 			<?php
 			$query = $db->query("SELECT * FROM world");
@@ -43,6 +53,7 @@
 			?>
 		</table>
 		
+		<!-- Table for the family selection -->
 		<table id='family_table'>
 			<?php
 			if (isset($_POST['world_form']))
@@ -72,6 +83,7 @@
 			?>
 		</table>
 		
+		<!-- Table for the monster selection -->
 		<table id='monster_table'>
 			<?php
 			if (isset($_POST['family_form']) && $_POST['family_form'] != '')
@@ -102,6 +114,7 @@
 			?>
 		</table>
 		
+		<!-- Table for that display informations about the monster -->
 		<table id='monster_info'>
 			<?php
 			if (isset($_POST['monster_form']) && $_POST['monster_form'] != '')
@@ -130,6 +143,7 @@
 			?>
 		</table>
 		
+		<!-- Auto-actualization after each action to keep the choices -->
 		<script src='js/script_index.js'></script>
 		<?php
 			if (isset($_POST['world_form']) && $_POST['world_form'] != '')

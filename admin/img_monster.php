@@ -1,3 +1,6 @@
+<!--
+	Allow to upload an image for a monster
+-->
 <!DOCTYPE html>
 <html>
 	<head>

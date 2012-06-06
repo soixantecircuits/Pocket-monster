@@ -1,3 +1,6 @@
+<!--
+	Include that handle upload test
+-->
 <?php
 
 	$allowed_filetypes = array('.jpg','.gif','.bmp','.png');

@@ -1,3 +1,6 @@
+<!--
+	Allow to upload an image for a family
+-->
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,3 +1,6 @@
+<!--
+	Allow to upload an image for a world
+-->
 <!DOCTYPE html>
 <html>
 	<head>

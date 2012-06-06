@@ -1,3 +1,4 @@
+// Called when clicking on the world radio
 function click_world () {
 	document.getElementById('lbl_name').innerHTML = "Name of the world : ";
 	document.getElementById('world').style.visibility = "hidden";
@@ -5,6 +6,7 @@ function click_world () {
 	document.getElementById('button_world').checked = true;
 }
 
+// Called when clicking on the family radio
 function click_family () {
 	document.getElementById('lbl_name').innerHTML = "Name of the family : ";
 	document.getElementById('world').style.visibility = "visible";
@@ -12,6 +14,7 @@ function click_family () {
 	document.getElementById('button_family').checked = true;
 }
 
+// Called when clicking on the monster radio
 function click_monster () {
 	document.getElementById('lbl_name').innerHTML = "Name of the monster : ";
 	document.getElementById('world').style.visibility = "visible";
@@ -19,6 +22,7 @@ function click_monster () {
 	document.getElementById('button_monster').checked = true;
 }
 
+// Called when first step is over, redirecting to a separate page
 function send_form () {
 	if (document.getElementById('button_world').checked) {
 		document.getElementById('form').action = 'admin/img_world.php';

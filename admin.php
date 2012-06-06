@@ -1,3 +1,11 @@
+<!--
+	====== admin.php =======
+	Administration panel that
+	allow users to add a world,
+	a family, or a monster with
+	the feature to upload pictures.
+-->
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +14,6 @@
 	</head>
 
 	<body>
-
 		<form id='form' name="form" action="admin.php" method="post" enctype="multipart/form-data">
 			<input type='radio' name='create' id='button_world' value='button_world' onclick='click_world();' />Create a World
 			<input type='radio' name='create' id='button_family' value='button_family' onclick='click_family();' />Create a family
@@ -15,9 +22,11 @@
 			<table>
 				<br />
 				<tr>
+				<!-- First input, in all creation pages -->
 					<td><label for='name' id="lbl_name">Name of the world : </label></td>
 					<td><input type="text" name="name" id="name" <?php if (isset($_POST['name'])) echo "value='".$_POST['name']."'"; ?> /></td>
 				</tr><tr id ='world'>
+				<!-- World choosing, in case of familly and monster creation -->
 					<td><label for='world' id="lbl_world">Choose a world</label></td>
 					<td>
 						<select name="world_select" onchange="this.form.submit();">
@@ -51,6 +60,7 @@
 						</select>
 					</td>
 				</tr><tr id ='family'>
+				<!-- Family choosing, in case of monster creation -->
 					<td><label for='world' id="lbl_family">Choose a family</label></td>
 					<td>
 						<select name="family_select">
@@ -83,6 +93,7 @@
 		</form>
 		
 		<script src='js/admin_button.js'></script>
+		<!-- Auto-actualization after each action to keep the choices -->
 		<?php
 			if (isset($_POST['create']) && $_POST['create'] == "button_family")
 			{

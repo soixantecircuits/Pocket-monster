@@ -1,3 +1,8 @@
+<!--
+	Include for the connection 
+	to the database
+-->
+
 <?php
 
 try

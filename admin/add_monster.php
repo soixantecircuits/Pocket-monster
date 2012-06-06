@@ -1,3 +1,7 @@
+<!--
+	Add a monster to the database and the photo
+	if is uploaded, else use a default photo
+-->
 <!DOCTYPE html>
 <html>
 	<head>
