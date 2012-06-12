@@ -15,7 +15,7 @@
 
 	<body>
 		<?php
-		include 'admin/inc_connec.php';
+		include 'config/inc_connec.php';
 		?>
 		<!-- Hidden forms to keed the values after each action -->
 		<form id='form' name="form" action="index.php" method="post">

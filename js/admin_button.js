@@ -25,11 +25,11 @@ function click_monster () {
 // Called when first step is over, redirecting to a separate page
 function send_form () {
 	if (document.getElementById('button_world').checked) {
-		document.getElementById('form').action = 'admin/img_world.php';
+		document.getElementById('form').action = 'admin/img.php?type=world';
 	} else if (document.getElementById('button_family').checked) {
-		document.getElementById('form').action = 'admin/img_family.php';
+		document.getElementById('form').action = 'admin/img.php?type=family';
 	} else {
-		document.getElementById('form').action = 'admin/img_monster.php';
+		document.getElementById('form').action = 'admin/img.php?type=monster';
 	}
 	
 	document.getElementById('form').submit();

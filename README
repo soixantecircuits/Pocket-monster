@@ -1,0 +1,7 @@
+The two main files are index.php, the user's panel that allow him to see informations about worlds, families, etc... The page will be blank if any world is added.
+
+The other one is admin.php, which allow an user to administrate the database. He can for instance create a world, create a family linked to a world, and a monster linked to a family. The first page is for naming and choosing a family/world. After that, the user can choose to upload a picture from his computer on the server or leave it blank and then the default picture will be use.
+
+The exported scheme of the sql database used is within the repository.
+
+by Kevin 'Qwazerty' Houdebert

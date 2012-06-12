@@ -3,39 +3,45 @@
 -->
 <?php
 
-	$allowed_filetypes = array('.jpg','.gif','.bmp','.png');
-    $max_filesize = 8388608; // 8MB
- 
-	$filename = $_FILES['userfile']['name'];
-	$ext = substr($filename, strpos($filename,'.'), strlen($filename)-1);
 	$img = null;
- 
-	// Check if the filetype is allowed, if not DIE and inform the user.
-	if ($filename != '')
+	
+	$path = '../img_' . $type . '/';
+	
+	if ((($_FILES['file']['type'] == "image/gif")
+		|| ($_FILES['file']['type'] == "image/png")
+		|| ($_FILES['file']['type'] == "image/jpg")
+		|| ($_FILES['file']['type'] == "image/jpeg")
+		|| ($_FILES['file']['type'] == "image/pjpeg")
+		&& ($_FILES['file']['size'] < 8388608))) // 8MB
 	{
-		
-		if(!in_array($ext,$allowed_filetypes))
-			die('The file you attempted to upload is not allowed.');
-	 
-		if(filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
-			die('The file you attempted to upload is too large.');
-	 
-		if(!is_writable($upload_path))
-			die('You cannot upload to the specified directory, please CHMOD it to 777.');
-	 
-		if(move_uploaded_file($_FILES['userfile']['tmp_name'],$upload_path . $filename))
+		if ($_FILES['file']["error"] > 0)
 		{
-			echo 'Your file upload was successful';
-			$img = $filename;
+			echo "Return Code: " . $_FILES['file']['error'] . "<br />";
 		}
 		else
 		{
-			echo 'There was an error during the file upload. Please try again.';
+			echo "Upload: " . $_FILES['file']['name'] . "<br />";
+			echo "Type: " . $_FILES['file']['type'] . "<br />";
+			echo "Size: " . ($_FILES['file']['size'] / 1024) . " Kb<br />";
+
+			if (file_exists($path . $_FILES['file']['name']))
+			{
+				echo $_FILES['file']["name"] . " already exists. ";
+			}
+			else
+			{
+				move_uploaded_file($_FILES['file']['tmp_name'],
+				$path . $_FILES['file']['name']);
+				echo "Stored in: " . $path . $_FILES['file']['name'];
+			}
+			
+			$img = $_FILES['file']['name'];
 		}
 	}
 	else
 	{
-		echo 'No file was uploaded. The default image will be use.';
+		echo "No file to upload or error while uploading. The default file will be use.";
 	}
-	echo '<br />';
+	
+	echo '<br /><br />';
 ?>

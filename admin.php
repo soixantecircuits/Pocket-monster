@@ -38,7 +38,7 @@
 									$ws = $_POST['world_select'];
 								}
 								
-								include 'admin/inc_connec.php';
+								include 'config/inc_connec.php';
 								
 								$query = $db->query("SELECT * FROM world");
 								
@@ -68,7 +68,7 @@
 							<?php
 								if ($ws != "" && $ws != "0")
 								{
-									include 'admin/inc_connec.php';
+									include 'config/inc_connec.php';
 									
 									$query = $db->query("SELECT * FROM family WHERE world='$ws' ");
 									
