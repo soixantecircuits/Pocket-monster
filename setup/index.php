@@ -75,6 +75,7 @@
 				$Conf->writeInFile("USER", $user);
 				$Conf->writeInFile("PSW", $psw);
 				$Conf->writeInFile("DB", $db);
+				(empty($table))?$Conf->writeInFile("PRX", $table):$Conf->writeInFile("PRX", '_'.$table);
 				$Conf->writeEndTagPhp();
 				$content= '
 				<p>Installation effectuée avec succès ! N\'oubliez pas de supprimer le dossier "setup" avant de continuer.</p>

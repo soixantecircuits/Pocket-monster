@@ -66,6 +66,7 @@ class Setup{
 		$this->_Query="
 		CREATE TABLE $family (
 		`id_family` INT NOT NULL AUTO_INCREMENT,
+		`id_world` INT NOT NULL,
 		`name` VARCHAR( 50 ) NOT NULL,
 		`img_url` VARCHAR( 50 ) NOT NULL,
 		`max_monster` INT NOT NULL,
@@ -75,6 +76,7 @@ class Setup{
 		$this->_Query="
 		CREATE TABLE $monster (
 		`id_monster` INT NOT NULL AUTO_INCREMENT,
+		`id_family` INT NOT NULL,
 		`taille` INT NOT NULL,
 		`poids` INT NOT NULL,
 		`force` INT NOT NULL,
