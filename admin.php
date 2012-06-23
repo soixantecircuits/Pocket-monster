@@ -153,7 +153,12 @@ var_dump($_POST);
 		<h3>Ajouter une famille</h3>
 		<form action="admin.php" method="post">
 			<select name="familyworld" id="familyworld">
-				<?php echo $Admin->listWorld(false); ?>
+				<?php $_world=$Admin->listWorld();
+					$_wLength = count($_world);
+					for ($i=0; $i < $_wLength; $i++) { 
+						echo "<option value='{$_world[$i]['id_world']}'>{$_world[$i]['name']}</option>";
+					}
+				?>
 			</select>
 			<input type="text" name="familyname" placeholder="Nom" id="familyname" required>
 			<input type="text" name="familylimit" placeholder="Monstre maximum dans cette famille" id="familylimit" required>
@@ -167,7 +172,12 @@ var_dump($_POST);
 		<h3>Ajouter un monstre</h3>
 		<form action="admin.php" method="post">
 			<select name="monsterfamily" id="monsterfamily">
-				<?php echo $Admin->listFamily(false); ?>
+				<?php $_family=$Admin->listFamily(); 
+					$_fLength = count($_family);
+					for ($i=0; $i < $_fLength; $i++) { 
+						echo "<option value='{$_family[$i]['id_world']}'>{$_family[$i]['name']}</option>";
+					}
+				?>
 			</select>
 			<input type="text" name="monstername" placeholder="Nom" id="monstername" required>
 			<input type="text" name="taille" placeholder="Taille" id="taille" required>
