@@ -1,12 +1,13 @@
 <?php
 require_once 'config/config.inc.php';
 if(!defined('HOST') && !defined('USER') && !defined('PSW') && !defined('DB')) header('Location: index.php');
-require_once 'class/db.class.php';
-$Db = new DB(HOST,USER,PSW,DB);
+require_once 'class/admin.class.php';
+$Admin = new admin();
 echo $_POST['modifWorld'];
 echo $_POST['modifFamily'];
 echo $_POST['modifMonster'];
-$content=$Db->action($_POST);
+$content=$Admin->action($_POST);
+$_data=$Admin->action($_POST);
 var_dump($_POST);
 ?>
 <!DOCTYPE html>
@@ -20,7 +21,12 @@ var_dump($_POST);
 		<h3>Modifier un monde</h3>
 		<form action="admin.php" method="post" id="formModifWorld">
 			<select name="id" id="modifWorld">
-				<?php echo $Db->listWorld(); ?>
+				<?php $_world=$Admin->listWorld();
+					$_wLength = count($_world);
+					for ($i=0; $i < $_wLength; $i++) { 
+						echo "<option value='{$_world[$i]['id_world']}'>{$_world[$i]['name']}</option>";
+					}
+				?>
 			</select>
 			<input type="submit" id="modifer" name="modifier" value="Modifier"/>
 			<input type="hidden" name="action" value="modif" id="action">
@@ -28,7 +34,16 @@ var_dump($_POST);
 		</form>
 		<section class='resultmodif'>
 			<?php if($_POST['type']=='world'){
-			echo $content;
+			echo "<form action='admin.php' method='post' class='modified'>
+				<ul>
+					<li><label for='worldname'>Nom</label><input type='text' name='worldname' value='{$_data['name']}' id='worldname'/></li>
+					<li><img src='img/{$_data['img_url']}' alt='{$_data['name']}'/></li>
+					<li><input type='file' name='worldfile' id='worldfile'></li>
+				</ul>
+				<input type='hidden' name='worldid' value='{$_data['id_world']}' id='worldid'>
+				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='submit' name='submit' value='Modifier' id='submit'>
+			</form>";
 			} ?>
 		</section>
 	</section>
@@ -36,7 +51,12 @@ var_dump($_POST);
 	<form action="admin.php" method="post">
 		<h3>Modifier une famille</h3>
 			<select name="id" id="modifFamily">
-				<?php echo $Db->listFamily(); ?>
+				<?php $_family=$Admin->listFamily(); 
+					$_fLength = count($_family);
+					for ($i=0; $i < $_fLength; $i++) { 
+						echo "<option value='{$_family[$i]['id_world']}'>{$_family[$i]['name']}</option>";
+					}
+				?>
 			</select>
 			<input type="submit" id="modifer" name="modifier" value="Modifier"/>
 			<input type="hidden" name="action" value="modif" id="action">
@@ -44,7 +64,30 @@ var_dump($_POST);
 		</form>
 		<section class='resultmodif'>
 			<?php if($_POST['type']=='family'){
-			echo $content;
+			echo "<form action='admin.php' method='post' class='modified'>
+				<ul>
+					<li><label for='familyname'>Nom</label><input type='text' name='familyname' value='{$_data['name']}' id='familyname'/></li>
+					<li><label for='familylimit'>Limite de monstre</label><input type='text' name='familylimit' value='{$_data['max_monster']}' id='familylimit'/></li>
+					<li><img src='img/{$_data['img_url']}' alt='{$_data['name']}'/></li>
+					<li><input type='file' name='familyfile' id='familyfile'></li>
+					<label for='id'>Monde</label>
+					<select name='id' id='modifFamily2'>";
+				$_world=$Admin->listWorld();
+					$_wLength = count($_world);
+					for ($i=0; $i < $_wLength; $i++) { 
+						if ($_world[$i]['id_world']==$_data['id_world']) {
+							echo "<option value='{$_world[$i]['id_world']}' selected>{$_world[$i]['name']}</option>";
+						} else {
+							echo "<option value='{$_world[$i]['id_world']}'>{$_world[$i]['name']}</option>";
+						}
+					}
+			echo"
+					</select>
+				</ul>
+				<input type='hidden' name='familyid' value='{$_data['id_family']}' id='familyid'>
+				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='submit' name='submit' value='Modifier' id='submit'>
+			</form>";
 			} ?>
 		</section>
 	</section>
@@ -52,7 +95,12 @@ var_dump($_POST);
 	<form action="admin.php" method="post">
 		<h3>Modifier un monstre</h3>
 			<select name="id" id="modifMonster">
-				<?php echo $Db->listMonster(); ?>
+				<?php $_monster=$Admin->listMonster(); 
+					$_mLength = count($_monster);
+					for ($i=0; $i < $_mLength; $i++) { 
+						echo "<option value='{$_monster[$i]['id_monster']}'>{$_monster[$i]['name']}</option>";
+					}
+				?>
 			</select>
 			<input type="submit" id="modifer" name="modifier" value="Modifier"/>
 			<input type="hidden" name="action" value="modif" id="action">
@@ -61,6 +109,33 @@ var_dump($_POST);
 		<section class='resultmodif'>
 			<?php if($_POST['type']=='monster'){
 			echo $content;
+			echo "<form action='admin.php' method='post' class='modified'>
+				<ul>
+					<li><label for='monstername'>Nom</label><input type='text' name='monstername' value='{$_data['name']}' id='monstername'/></li>
+					<li><label for='taille'>Taille</label><input type='text' name='taille' value='{$_data['taille']}' id='taille'/></li>
+					<li><label for='poids'>Poids</label><input type='text' name='poids' value='{$_data['poids']}' id='poids'/></li>
+					<li><label for='force'>Force</label><input type='text' name='force' value='{$_data['force']}' id='force'/></li>
+					<li><label for='agilite'>Agilité</label><input type='text' name='agilite' value='{$_data['agilite']}' id='agilite'/></li>
+					<li><label for='intelligence'>Intelligence</label><input type='text' name='intelligence' value='{$_data['intelligence']}' id='intelligence'/></li>
+					<li><img src='img/{$_data['img_url']}' alt='{$_data['name']}'/></li>
+					<li><input type='file' name='monsterfile' id='monsterfile'></li>
+					<label for='id'>Famille</label><select name='id' id='modifMonster2'>";
+			$_family=$Admin->listFamily();
+				$_fLength = count($_family);
+				for ($i=0; $i < $_fLength; $i++) { 
+					if ($_family[$i]['id_family']==$_data['id_family']) {
+						echo "<option value='{$_family[$i]['id_family']}' selected>{$_family[$i]['name']}</option>";
+					} else {
+						echo "<option value='{$_family[$i]['id_family']}'>{$_family[$i]['name']}</option>";
+					}
+				}
+			echo "
+					</select>
+				</ul>
+				<input type='hidden' name='monsterid' value='{$_data['id_monster']}' id='monsterid'>
+				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='submit' name='submit' value='Modifier' id='submit'>
+			</form>";
 			} ?>
 		</section>
 	</section>
@@ -78,7 +153,7 @@ var_dump($_POST);
 		<h3>Ajouter une famille</h3>
 		<form action="admin.php" method="post">
 			<select name="familyworld" id="familyworld">
-				<?php echo $Db->listWorld(); ?>
+				<?php echo $Admin->listWorld(false); ?>
 			</select>
 			<input type="text" name="familyname" placeholder="Nom" id="familyname" required>
 			<input type="text" name="familylimit" placeholder="Monstre maximum dans cette famille" id="familylimit" required>
@@ -92,7 +167,7 @@ var_dump($_POST);
 		<h3>Ajouter un monstre</h3>
 		<form action="admin.php" method="post">
 			<select name="monsterfamily" id="monsterfamily">
-				<?php echo $Db->listFamily(); ?>
+				<?php echo $Admin->listFamily(false); ?>
 			</select>
 			<input type="text" name="monstername" placeholder="Nom" id="monstername" required>
 			<input type="text" name="taille" placeholder="Taille" id="taille" required>
