@@ -121,7 +121,8 @@ var_dump($_POST);
 					<li><label for='agilite'>Agilité</label><input type='text' name='agilite' value='{$_data['agilite']}' id='agilite'/></li>
 					<li><label for='intelligence'>Intelligence</label><input type='text' name='intelligence' value='{$_data['intelligence']}' id='intelligence'/></li>
 					<li><img src='img/{$_data['img_url']}' alt='{$_data['name']}'/></li>
-					<li><input type='file' name='monsterfile' id='monsterfile'></li>
+					<li><input type='file' name='monsterfile_' id='monsterfile'></li>
+				</ul>
 					<label for='id'>Famille</label><select name='id' id='modifMonster2'>";
 			$_family=$Admin->listFamily();
 				$_fLength = count($_family);
@@ -134,7 +135,7 @@ var_dump($_POST);
 				}
 			echo "
 					</select>
-				</ul>
+				<input type='hidden' name='monsterfile' id='monsterfile' value='{$_data['img_url']}'>
 				<input type='hidden' name='monsterid' value='{$_data['id_monster']}' id='monsterid'>
 				<input type='hidden' name='action' value='update' id='action'>
 				<input type='hidden' name='type' value='monster' id='type'>
