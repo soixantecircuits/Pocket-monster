@@ -35,7 +35,10 @@ class World {
 	}
 
 	function updateWorld($world){
-		
+		($world['worldfile_'])?$img_url=$world['worldfile_']:$img_url=$world['worldfile'];
+		$_query='UPDATE  `'.DB.'`.`'.PRX.'world` SET  `name` =  "'.$world["worldname"].'",
+		`img_url` =  "'.$img_url.'" WHERE  '.PRX.'world.`id_world` ='.$world["worldid"];
+		$this->Db->query($_query) or die ($this->_Link->error());
 	}
 	
 	function deleteWorld($world){

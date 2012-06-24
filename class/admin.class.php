@@ -29,6 +29,9 @@ class Admin{
 					case 'add':
 						$this->World->addWorld($tab);
 						break;
+					case 'update':
+						$this->World->updateWorld($tab);
+						break;
 					default:
 						return false;
 						break;
@@ -42,6 +45,9 @@ class Admin{
 					case 'add':
 						$this->Family->addFamily($tab);
 						break;
+					case 'update':
+						$this->Family-updateFamily($tab);
+						break;
 					default:
 						return false;
 						break;
@@ -54,6 +60,9 @@ class Admin{
 						break;
 					case 'add':
 						$this->Monster->addMonster($tab);
+						break;
+					case 'update':
+						$this->Monster->updateMonster($tab);
 						break;
 					default:
 						return false;

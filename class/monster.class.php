@@ -20,8 +20,6 @@ class Monster {
 	}
 
 	function showMonster($id){
-		require_once 'family.class.php';
-		$this->Family = new Family();
 		$_Query='SELECT id_monster, id_family, taille, poids, `force`, agilite, intelligence, name, img_url FROM '.PRX.'monster WHERE id_monster='.$id;
 		$_Result=$this->Db->query($_Query);
 		while($_Data=$_Result->fetch_array(MYSQLI_ASSOC)){

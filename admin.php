@@ -6,7 +6,6 @@ $Admin = new admin();
 echo $_POST['modifWorld'];
 echo $_POST['modifFamily'];
 echo $_POST['modifMonster'];
-$content=$Admin->action($_POST);
 $_data=$Admin->action($_POST);
 var_dump($_POST);
 ?>
@@ -34,14 +33,17 @@ var_dump($_POST);
 		</form>
 		<section class='resultmodif'>
 			<?php if($_POST['type']=='world'){
+				// showWorld
 			echo "<form action='admin.php' method='post' class='modified'>
 				<ul>
 					<li><label for='worldname'>Nom</label><input type='text' name='worldname' value='{$_data['name']}' id='worldname'/></li>
 					<li><img src='img/{$_data['img_url']}' alt='{$_data['name']}'/></li>
-					<li><input type='file' name='worldfile' id='worldfile'></li>
+					<li><input type='file' name='worldfile_' id='worldfile_' onchange='this.form.worldfile.value=this.value;'></li>
 				</ul>
+				<input type='hidden' name='worldfile' id='worldfile' value='{$_data['img_url']}'>
 				<input type='hidden' name='worldid' value='{$_data['id_world']}' id='worldid'>
-				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='hidden' name='action' value='update' id='action'>
+				<input type='hidden' name='type' value='world' id='type'>
 				<input type='submit' name='submit' value='Modifier' id='submit'>
 			</form>";
 			} ?>
@@ -54,7 +56,7 @@ var_dump($_POST);
 				<?php $_family=$Admin->listFamily(); 
 					$_fLength = count($_family);
 					for ($i=0; $i < $_fLength; $i++) { 
-						echo "<option value='{$_family[$i]['id_world']}'>{$_family[$i]['name']}</option>";
+						echo "<option value='{$_family[$i]['id_family']}'>{$_family[$i]['name']}</option>";
 					}
 				?>
 			</select>
@@ -85,7 +87,8 @@ var_dump($_POST);
 					</select>
 				</ul>
 				<input type='hidden' name='familyid' value='{$_data['id_family']}' id='familyid'>
-				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='hidden' name='action' value='update' id='action'>
+				<input type='hidden' name='type' value='family' id='type'>
 				<input type='submit' name='submit' value='Modifier' id='submit'>
 			</form>";
 			} ?>
@@ -133,7 +136,8 @@ var_dump($_POST);
 					</select>
 				</ul>
 				<input type='hidden' name='monsterid' value='{$_data['id_monster']}' id='monsterid'>
-				<input type='hidden' name='action' value='modified' id='action'>
+				<input type='hidden' name='action' value='update' id='action'>
+				<input type='hidden' name='type' value='monster' id='type'>
 				<input type='submit' name='submit' value='Modifier' id='submit'>
 			</form>";
 			} ?>
@@ -146,7 +150,7 @@ var_dump($_POST);
 			<input type="file" name="worldfile" id="worldfile" required>
 			<input type="submit" name="submitworld" value="Ajouter le monde" id="submitworld">
 			<input type="hidden" name="action" value="add" id="action">
-			<input type="hidden" name="type" value="world" id="action">
+			<input type="hidden" name="type" value="world" id="type">
 		</form>
 	</section><!-- end of #addworld -->
 	<section id="addfamily">
@@ -175,7 +179,7 @@ var_dump($_POST);
 				<?php $_family=$Admin->listFamily(); 
 					$_fLength = count($_family);
 					for ($i=0; $i < $_fLength; $i++) { 
-						echo "<option value='{$_family[$i]['id_world']}'>{$_family[$i]['name']}</option>";
+						echo "<option value='{$_family[$i]['id_family']}'>{$_family[$i]['name']}</option>";
 					}
 				?>
 			</select>
