@@ -24,14 +24,23 @@ class Admin{
 			case 'world':
 				switch ($tab['action']) {
 					case 'modif':
-						$_Action=$this->World->showWorld($tab['id']);
+						$_Action=$this->World->showWorld($tab['id_world']);
 						break;
 					case 'add':
 						$this->World->addWorld($tab);
 						break;
 					case 'update':
-						$this->World->updateWorld($tab);
-						break;
+						switch ($tab['submit']) {
+							case 'Modifier':
+								$this->World->updateWorld($tab);
+								break;
+							case 'Supprimer':
+								$this->World->deleteWorld($tab);
+								break;
+							default:
+								return false;
+								break;
+						}
 					default:
 						return false;
 						break;
@@ -40,13 +49,23 @@ class Admin{
 			case 'family':
 				switch ($tab['action']) {
 					case 'modif':
-						$_Action=$this->Family->showFamily($tab['id']);
+						$_Action=$this->Family->showFamily($tab['id_family']);
 						break;
 					case 'add':
 						$this->Family->addFamily($tab);
 						break;
 					case 'update':
-						$this->Family-updateFamily($tab);
+						switch ($tab['submit']) {
+							case 'Modifier':
+								$this->Family->updateFamily($tab);
+								break;
+							case 'Supprimer':
+								$this->Family->deleteFamily($tab);
+								break;
+							default:
+								return false;
+								break;
+						}
 						break;
 					default:
 						return false;
@@ -56,14 +75,23 @@ class Admin{
 			case 'monster':
 				switch ($tab['action']) {
 					case 'modif':
-						$_Action=$this->Monster->showMonster($tab['id']);
+						$_Action=$this->Monster->showMonster($tab['id_monster']);
 						break;
 					case 'add':
 						$this->Monster->addMonster($tab);
 						break;
 					case 'update':
-						$this->Monster->updateMonster($tab);
-						break;
+						switch ($tab['submit']) {
+							case 'Modifier':
+								$this->Monster->updateMonster($tab);
+								break;
+							case 'Supprimer':
+								$this->Monster->deleteMonster($tab);
+								break;
+							default:
+								return false;
+								break;
+						}
 					default:
 						return false;
 						break;
@@ -80,13 +108,25 @@ class Admin{
 	function listWorld(){
 		return $this->World->listWorld();
 	}
+	
+	function checkWorld(){
+		return $this->World->checkWorld();
+	}
 
 	function listFamily(){
 		return $this->Family->listFamily();
 	}
 	
+	function checkFamily(){
+		return $this->Family->checkFamily();
+	}
+	
 	function listMonster(){
 		return $this->Monster->listMonster();
+	}
+	
+	function checkMonster(){
+		return $this->Monster->checkMonster();
 	}
 	
 	function __destruct()
