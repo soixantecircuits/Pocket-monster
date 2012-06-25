@@ -114,19 +114,19 @@ class Admin{
 	}
 
 	function listFamily(){
-		return $this->Family->listFamily();
+		return $this->Family->listFamily(false);
 	}
 	
 	function checkFamily(){
-		return $this->Family->checkFamily();
+		return $this->Family->checkFamily(false);
 	}
 	
 	function listMonster(){
-		return $this->Monster->listMonster();
+		return $this->Monster->listMonster(false);
 	}
 	
 	function checkMonster(){
-		return $this->Monster->checkMonster();
+		return $this->Monster->checkMonster(false);
 	}
 	
 	function __destruct()

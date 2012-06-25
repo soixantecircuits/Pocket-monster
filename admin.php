@@ -4,7 +4,6 @@ if(!defined('HOST') && !defined('USER') && !defined('PSW') && !defined('DB')) he
 require_once 'class/admin.class.php';
 $Admin = new admin();
 $_data=$Admin->action($_POST);
-var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <head>

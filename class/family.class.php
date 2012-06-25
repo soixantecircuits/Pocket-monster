@@ -5,16 +5,24 @@ class Family {
 		$this->Db = new mysqli(HOST,USER,PSW,DB);
 	}
 	
-	function checkFamily(){
-		$_Query='SELECT id_family, name, img_url FROM '.PRX.'family';
+	function checkFamily($id){
+		if($id){
+			$_Query='SELECT id_family, name, img_url FROM '.PRX.'family WHERE id_world='.$id;
+		}else{
+			$_Query='SELECT id_family, name, img_url FROM '.PRX.'family';
+		}
 		$_Result=$this->Db->query($_Query);
 		$_Count=$_Result->num_rows;
 		$_Result->free();
 		return $_Count;
 	}
 	
-	function listFamily(){
-		$_Query='SELECT id_family, name, img_url FROM '.PRX.'family  ORDER BY name';
+	function listFamily($id){
+		if($id){
+			$_Query='SELECT id_family, name, img_url FROM '.PRX.'family WHERE id_world='.$id.' ORDER BY name';
+		}else{
+			$_Query='SELECT id_family, name, img_url FROM '.PRX.'family  ORDER BY name';
+		}
 		$_Result=$this->Db->query($_Query);
 		$i=0;
 		while($_data=$_Result->fetch_array(MYSQLI_ASSOC)){

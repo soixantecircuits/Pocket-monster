@@ -5,15 +5,23 @@ class Monster {
 		$this->Db = new mysqli(HOST,USER,PSW,DB);
 	}
 	
-	function checkMonster(){
-		$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster';
+	function checkMonster($id){
+		if($id){
+			$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster WHERE id_family='.$id;
+		}else{
+			$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster';
+		}
 		$_result=$this->Db->query($_Query);
 		$_Count=$_result->num_rows;
 		return $_Count;
 	}
 	
-	function listMonster(){
-		$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster ORDER BY name';
+	function listMonster($id){
+		if($id){
+			$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster WHERE id_family='.$id.' ORDER BY name';
+		}else{
+			$_Query='SELECT id_monster, name, img_url FROM '.PRX.'monster ORDER BY name';
+		}
 		$_Result=$this->Db->query($_Query);
 		$i=0;
 		while($_data=$_Result->fetch_array(MYSQLI_ASSOC)){
