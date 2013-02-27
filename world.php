@@ -4,9 +4,11 @@
 	//if we creat a world 
 	if(isset($_POST['creat_world'])){
 		$world = new World($_POST['w_name'],$_POST['w_pic']);
-		$GlOBALS["worldM"]->add($GLOBALS["mydb"], $world);
+		$mydb = new MyDB();
+		$worldManager = new WorldManager($mydb);
+		$worldManager->add($mydb, $world);
 	}
-	$names = $GLOBALS["worldM"]->getAll($GLOBALS["mydb"]); //getting all worlds 
+	$names = $worldManager->getAll($mydb); //getting all worlds names&
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -26,11 +28,14 @@
 				<?php
 					//we going to show all the worlds contained on the world table
 					if(!empty($names)){
+						
 						foreach($names as $value){
-							echo '<input type="radio" name="the_world" value="'.$value.'"/>'.$value.'</label><br/>';
-							echo '<p><input type="submit" name="w_access" value="Access"></p>';
-							echo '<p><input type="submit" name="w_delete" value="Delete"></p>';
+							echo '<p><input type="radio" name="the_world" value="'.$value->_name.'"/>'.$value->_name.'</label></p>';
 						}
+						echo '<p><input type="submit" name="w_access" value="Access">';
+						echo '<input type="submit" name="w_delete" value="Delete">';
+						echo '<input type="submit" name="family_form" value="Creat Family !"></p>';
+						
 					}else{
 						echo '<p><center>><h1><label>No World Created. </label></h1></center></p>';
 					}

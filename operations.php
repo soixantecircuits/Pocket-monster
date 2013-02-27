@@ -13,8 +13,9 @@ so we going to creat three class that can hundle add, delete, get informations f
 	
 	//this class creat DataBase on Memory
 	class MyDB extends SQLite3{
+		public $db;
 		function __construct(){
-			$this->open(':memory:');
+			$this->open('mydb.db');
 		}
 	}
 	
@@ -34,9 +35,14 @@ so we going to creat three class that can hundle add, delete, get informations f
 		
 		//this function add a world to the table 
 		public function add(MyDB $dataB, World $w){
+			//testing the database and the world 
 			if(!empty($dataB)&&!empty($w)){
-				$query = 'INSERT INTO world (name,pic) VALUES ("'.$w->_name.'","'.$w->_pic.'")';
-				$dataB->query($query);
+				//in the case we ca
+				if(!$this->exists($dataB,$w)){
+					$query = 'INSERT INTO world (name,pic) VALUES ("'.$w->_name.'","'.$w->_pic.'")';
+					$dataB->exec($query);
+				}
+			//if it doesn't exist 
 			}else
 				exit("Database don't exist or world don't exists<br/>");
 		}
@@ -50,24 +56,29 @@ so we going to creat three class that can hundle add, delete, get informations f
 		public function get(MyDB $dataB,$name){
 			if(!empty($dataB)){
 				$q = $dataB->query('SELECT * FROM world WHERE name = "'.$name.'"');
-	      		$donnees = $q->fetchArray(PDO::FETCH_ASSOC);
-	      		if(!empty($donnees))
-	      			return new World($donnees[0],$donnees[1]);
-	      		else
-	      			return NULL;
+				$result = array();
+				//extracting results of the request
+	      		while($data = $q->fetchArray(SQLITE3_NUM));
+	      			$result[$data[0]] = new World($data[0],$data[1]);
+	     		
+	     		return $result;
 			}
 			exit("Database don't exists <br/>");
 		}
 		
 		public function getAll(MyDB $dataB){
 			if(!empty($dataB)){
-				$q = $dataB->query('SELECT name FROM world');
-	      		$names = $q->fetchArray(PDO::FETCH_ASSOC);
+				echo '<br/>?';
+				var_dump($dataB);
+				$sqlRes = $dataB->query("SELECT name FROM world"); //preparing the request
+				$result = array();
+								
+				//extracting all results
+				while($data = $sqlRes->fetchArray(SQLITE3_NUM))
+	   				$result["$data[0]"] = new World($data[0],$data[1]);
+	   			
+	   			return $result;
 	      		
-	      		if(!empty($names))
-	      			return $names;
-	      		else
-	      			return NULL;
 			}
 			exit("Database don't exists <br/>");
 		}
@@ -76,7 +87,9 @@ so we going to creat three class that can hundle add, delete, get informations f
 		public function exists(MyDB $dataB, World $w){
 			if(!empty($w)){
 				$query = 'SELECT COUNT(*) FROM world WHERE name = "'.$w->_name.'"';
-				return (bool) $dataB->exec($query);
+				$sqlRes = $dataB->query($query);
+				$result = $sqlRes->numColumns();
+				return $result==0;
 			}
 			return false;
 		}
@@ -87,18 +100,18 @@ so we going to creat three class that can hundle add, delete, get informations f
 	//Same thing for Family's and Monster's Management
 	//this Class Manage the Family Table
 	class FamilyManager {
-		
 		//creat Families table if not exists
 		public function __construct(MyDB $dataB){
 			if(!empty($dataB)){
-				$query = "CREATE TABLE family(
-							name VARCHAR(20) NOT NULL PRIMARY KEY,
-							world_name VARCHAR(20) REFERENCES world(name) ON DELETE CASCADE ON UPDATE CASCADE,
+				$dataB->exec('PRAGMA foreign_keys = ON;');
+				$query = "CREATE TABLE IF NOT EXISTS family(
+							name VARCHAR(20)NOT NULL PRIMARY KEY,
+							world_name VARCHAR(20),
 							pic TEXT NOT NULL,
-							max INTEGER NOT NULL
-							)";
+							max INTEGER NOT NULL,
+							CONSTRAINT FK_family_world FOREIGN KEY (world_name) REFERENCES world(name) ON DELETE CASCADE ON UPDATE CASCADE)";
+				$result = $dataB->exec($query);
 				
-				$dataB->exec($query);
 				if(!$result)
 					exit("Family Table not Created </br>");
 			}else
@@ -107,8 +120,10 @@ so we going to creat three class that can hundle add, delete, get informations f
 		
 		public function add(MyDB $dataB, Family $fam){
 			if(!empty($dataB)&&!empty($fam)){
-				$query = 'INSERT INTO family VALUES ("'.$fam->_name.'","'.$fam->_world.'","'.$fam->_pic.'","'.$fam->_max.'")';
-				$dataB->query($query);
+				if(!$this->exists($dataB,$fam)){
+					$query = 'INSERT INTO family VALUES ("'.$fam->_name.'","'.$fam->_world.'","'.$fam->_pic.'","'.$fam->_max.'")';
+					$dataB->exec($query);
+				}
 			}else
 				exit("Database don't exist or family don't exists<br/>");
 		}
@@ -121,20 +136,25 @@ so we going to creat three class that can hundle add, delete, get informations f
 		
 		public function getByWorld (MyDB $data, $name_world){
 			if(!empty($dataB)){
-				$q = $dataB->query('SELECT name FROM family WHERE world = "'.$name_world.'"');
-	      		$donnees = $q->fetchArray(PDO::FETCH_ASSOC);
-	      		return $donnees;
+				$sqlRes = $dataB->query('SELECT name FROM family WHERE world_name = "'.$name_world.'"');
+				$result = array();
+				$i=0;
+	      		while($data = $sqlRes->fetchArray(PDO::FETCH_NUM)){
+	      			$result[i] = $data[0];
+	      			$i++;
+	      		}
+	      		return $result;
 			}
 		}
 		
 		public function get(MyDB $dataB,$name){
 			if(!empty($dataB)){
-				$q = $dataB->query('SELECT * FROM family WHERE name = "'.$name.'"');
-	      		$donnees = $q->fetchArray(PDO::FETCH_ASSOC);
-	      		if(!empty($donnees))
-	      			return new Family($donnees[0],$donnees[1],$donnees[2],$donnees[3]);
-	      		else
-	      			return NULL;
+				$sqlRes = $dataB->query('SELECT * FROM family WHERE name = "'.$name.'"');
+				$result = array();
+	      		while($data = $sqlRes->fetchArray(PDO::FETCH_NUM))
+	      			$result[$data[0]] = new Family($data[0],$data[1],$data[2],$data[3]);
+	      		
+	      		return $result;
 			}
 			exit("Database don't exists <br/>");
 		}
@@ -142,7 +162,9 @@ so we going to creat three class that can hundle add, delete, get informations f
 		public function exists(MyDB $dataB, Family $fam){
 			if(!empty($dataB) && !empty($fam)){
 				$query = 'SELECT COUNT(*) FROM family WHERE name = "'.$fam->_name.'"';
-				return (bool) $dataB->exec($query);
+				$sqlRes = $dataB->query($query);
+				$result = $sqlRes->numColumns();
+				return $result==0;
 			}
 			return false;
 		}
@@ -155,15 +177,16 @@ so we going to creat three class that can hundle add, delete, get informations f
 		//creat monster's table if not exists
 		public function __construct(MyDB $dataB){
 			if(!empty($dataB)){
-				$query = "CREATE TABLE monster (
+				$dataB->exec('PRAGMA foreign_keys = ON;');
+				$query = "CREATE TABLE IF NOT EXISTS monster (
 							name VARCHAR(20) NOT NULL PRIMARY KEY,
 							age INTEGER,
 							pic TEXT,
-							family_name VARCHAR(20) REFERENCES family(name) ON DELETE CASCADE ON UPDATE CASCADE,
+							family_name VARCHAR(20),
 							eyes TEXT,
 							hair TEXT,
-							skin TEXT 
-							)";
+							skin TEXT,
+							CONSTRAINT FK_monster_family FOREIGN KEY (family_name) REFERENCES family(name) ON DELETE CASCADE ON UPDATE CASCADE)";
 				
 				$result = $dataB->exec($query);
 				if(!$result)
@@ -175,8 +198,10 @@ so we going to creat three class that can hundle add, delete, get informations f
 		//adding
 		public function add(MyDB $dataB, Monster $m){
 			if(!empty($dataB)&&!empty($m)){
-				$query = 'INSERT INTO monster VALUES ("'.$m->_name.'","'.$m->_age.'","'.$m->_pic.'","'.$m->_family.'","'.$m->_eyes.'","'.$m->_hair.'","'.$m->_skin.'")';
-				$dataB->query($query);
+				if(!$this->exists($dataB,$m)){
+					$query = 'INSERT INTO monster VALUES ("'.$m->_name.'","'.$m->_age.'","'.$m->_pic.'","'.$m->_family.'","'.$m->_eyes.'","'.$m->_hair.'","'.$m->_skin.'")';
+					$dataB->exec($query);
+				}
 			}else
 				exit("Database don't exist or Monster don't exists<br/>");
 		}
@@ -190,12 +215,12 @@ so we going to creat three class that can hundle add, delete, get informations f
 		//getting
 		public function get(MyDB $dataB,$name){
 			if(!empty($dataB)){
-				$q = $dataB->query('SELECT * FROM monster WHERE name = "'.$name.'"');
-	      		$donnees = $q->fetchArray(PDO::FETCH_ASSOC);
-	      		if(!empty($donnees))
-	      			return new Monster($donnees[0],$donnees[1],$donnees[2],$donnees[3], $donnees[4], $donnees[5], $donnees[6]);
-	      		else
-	      			return NULL;
+				$sqlRes = $dataB->query('SELECT * FROM monster WHERE name = "'.$name.'"');
+				$result = array();
+	      		while($data = $sqlRes->fetchArray(PDO::FETCH_NUM)){
+	      			$result[$data[0]] = new Monster($donnees[0],$donnees[1],$donnees[2],$donnees[3], $donnees[4], $donnees[5], $donnees[6]);
+	      		}
+	      		return $result;
 			}
 			exit("Database don't exists <br/>");
 		}
@@ -203,9 +228,14 @@ so we going to creat three class that can hundle add, delete, get informations f
 		//getting monsters by family
 		public function getByFamily(MyDB $dataB, $name_family){
 			if(!empty($dataB)){
-				$q = $dataB->query('SELECT name FROM monster WHERE family = "'.$name_family.'"');	
-	      		$donnees = $q->fetchArray(PDO::FETCH_ASSOC);
-	   			return $donnees;
+				$sqlRes = $dataB->query('SELECT name FROM monster WHERE family_name = "'.$name_family.'"');	
+				$result = array();
+				$i=0;
+	      		while($data = $sqlRes->fetchArray(PDO::FETCH_NUM)){
+	      			$result[i] = $data[0];
+	      			$i++;
+	      		}
+	   			return $result;
 			}
 			exit("Database don't exists <br/>");
 		}
@@ -215,7 +245,9 @@ so we going to creat three class that can hundle add, delete, get informations f
 		public function exists(MyDB $dataB, Monster $m){
 			if(!empty($dataB) && !empty($m)){
 				$query = 'SELECT COUNT(*) FROM monster WHERE name = "'.$m->_name.'"';
-				return (bool) $dataB->exec($query);	
+				$sqlRes = $dataB->query($query);
+				$result = $sqlRes->numColumns();
+				return $result==0;
 			}
 			return false;
 		}

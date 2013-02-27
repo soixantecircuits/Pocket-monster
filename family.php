@@ -24,11 +24,15 @@
 	
 	//if we access a world 
 	if(isset($_POST['w_access'])){
-		$names = $GLOBALS["familyM"]->getByWorld($GLOBALS["mydb"], $_POST['the_world']); //getting all worlds
+		$mydb = new MyDB();
+		$familyManager = new FamilyManager($mydb);
+		$names = $familyManager->getByWorld($mydb, $_POST['the_world']); //getting all worlds
 	}
 	//if we delete a world
 	if(isset($_POST['w_delete'])){
-		$GLOBALS["worldM"]->delete($GLOBALS["mydb"], $_POST["the_world"]);
+		$mydb = new MyDB();
+		$worldManager = new WorldManager($mydb);
+		$worldManager->delete($mydb, $_POST["the_world"]);
 		//return to world.php after deleting
 		echo '<script language="javascript"> ret(); </script>';
 	}
@@ -61,13 +65,15 @@
 					echo '<legend>Creat Family </legend>';
 					echo '<p> <label for="f_name">Family\'s Name :</label> <input type="text" name="f_name" required/> </p>';
 					echo '<p> <label for="f_name">Family\'s World :</label><br/>';
-					//we getall world's name
-					$allWorlds = $GLOBALS["worldM"]->getAll($GLOBALS["mydb"]);
+					//we get all worlds names
+					$mydb = new MyDB();
+					$worldManager = new WorldManager($mydb);
+					$allWorlds = $worldManager->getAll($mydb);
 					foreach($allWorlds as $value){
 						echo '<option value="'.$value.'">'.$value.'</option>';
 					}
 					echo '</select></p>';
-					echo '<p> <label for="f_pic">Family\'s Picture :</label> <input type="text" name="f_pic"/> </p>';
+					echo '<p> <label for="f_pic">Family\'s Picture :</label> <input type="text" name="f_pic" required/> </p>';
 					echo '<p> <label for="f_pic">Family\'s Maximum Number :</label> <input type="number" name="f_max"/> </p>';
 					echo '<p> <input type="submit" name="creat_family" value="Creat This Family !"/> </p>';
 					echo '</fieldset>';
