@@ -1,0 +1,144 @@
+h1{
+    text-shadow : -7px 0 10px #555;
+    color : #663399;
+}
+/*------------------------------------------------*/
+form { 
+    margin: auto; 
+}
+
+/*----------- pour les listes deroulantes --------*/
+
+.sexe {
+    font-size: 8pt;
+    font-family: verdana;
+}
+
+.jour {
+    font-size: 8pt;
+    font-family: verdana; /*police */
+}
+
+.mois{
+	font-size: 8pt;
+	font-family: verdana;
+}
+
+.annee{
+    font-size:    8pt;
+    font-family: verdana;
+}
+
+/*---------------- Body et couleur de fond -------------------------*/
+
+body {
+    margin: 0px; 
+    background-color: #DEDEDE;
+    text-align: center;
+    font: 11px Verdana, sans-serif; 
+    line-height: 20px;
+    color: #555555;
+}
+
+/*--------------------------------------------------------------------------------- */
+
+/*---------- les liens -----------*/
+
+a.link {
+    color: #006666;
+    text-decoration: none;
+}
+a.link:hover {
+    background-color: #f9f9f9;
+    color: #009900;
+    border-bottom: 1px solid #00bb00;
+}
+
+/*-------------------------------------------*/
+
+.formulaire legend{
+    padding-top:10px; 
+    padding-bottom:5px;
+    padding-right:5px;
+    padding-left:5px
+    text-shadow:0.5px 0.5px 0.1px #9b9b9b;
+}
+
+fieldset{
+    margin-left : 250px; /*on essai de centrer le formulaire*/
+    width : 50%;
+    height : 50%;
+    margin-bottom:10px;
+    border-radius: 125px / 12px; 
+    box-shadow: 0 0 65px #cdbe9f inset ; 
+}
+
+label {
+    display : block;
+	float: left;
+	width : 150px;
+    text-align : right;
+ } 
+ 
+input[type="text"]{
+	width:40%;
+	border:1px solid #CCC;
+	background-color: #F0F0F0;
+} 
+
+textarea{
+	width:70%;
+	margin-right: 3px;
+	margin-top: 1px;
+	border : 1px solid #CCC;
+	background-color : #F0F0F0;
+} 
+
+input[type="password"]{
+	width : 40%;
+	border : 1px solid #CCC;
+	background-color: #F0F0F0;
+} 
+
+
+input[type="submit"], input[type="reset"], input[type="button"]  {
+    border-width : 0.5px;
+    border-color : #706b64 ;
+    border-radius : 5px;
+    background : none;
+    cursor: pointer;
+}
+ 
+/*--------------------styel table---------------*/
+
+caption {
+ font-weight : bold;
+ text-shadow : 0.5px 0.5px 0.1px #9b9b9b;
+}
+
+table.boiteEnvoi {
+    width : 100%;
+    align : center ;
+	border-spacing : 2px;
+	border-collapse : collapse;
+	background-color : #FFFFFF;
+	border : 1px solid #00CCFF;
+}
+table.boiteEnvoi th {
+	border-width : 1px;
+	width : 4px;
+	height : 2px;
+	padding : 5px;
+	border-style : solid;
+	border-color : gray;
+	background-color : #CCCCCC;
+}
+table.boiteEnvoi td {
+    height : 20px;
+	border-width : 1px;
+    width : 200px;
+	border-width : 1px;
+	padding : 5px;
+	border-style : solid;
+	border-color : gray;
+}
